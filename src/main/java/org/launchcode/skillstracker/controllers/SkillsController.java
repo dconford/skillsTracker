@@ -10,7 +10,7 @@ public class SkillsController {
     // Handles Requests at path (localhost:8080/)
     @RequestMapping(value = "/")
     public String skills() {
-        return "<html>" +
+        String landingPage = "<html>" +
                 "<body>" +
                 "<h1>Skills Tracker</h1>\n" +
                 "<h2>We have a few skills we'd like you to learn. Here is the list</h2>" +
@@ -26,11 +26,13 @@ public class SkillsController {
                 "</body>" +
                 "</html>";
 
+        return landingPage;
     }
 
-    @GetMapping("/form")
+    @RequestMapping(value = "/form", method = RequestMethod.GET)
+    //@RequestMapping(method= {RequestMethod.GET, RequestMethod.POST}, value= "/form")
+    //@GetMapping("/form")
     public String skillsForm() {
-
         String languageChoice =  "    <option value='Java'>Java</option>\n" +
                 "    <option value='HTML'>HTML</option>\n" +
                 "    <option value='CSS'>CSS</option>\n" +
@@ -40,10 +42,9 @@ public class SkillsController {
                 "    <option value='PHP'>PHP</option>\n";
 
 
-
-        return "<html>" +
+        String gimmeLine =  "<html>" +
                 "<body>" +
-                "<form method= 'post' action= 'createMessage'>" +
+                "<form method= 'post' action= 'form'>" +
                 "<label for= 'name'>Name: </label><br>" +
                 "<input type= 'text' id= 'name' name= 'name' required><br>" +
                 "<label for= 'firstChoice'>My favorite language: </label><br>" +
@@ -62,15 +63,22 @@ public class SkillsController {
                 "</form>" +
                 "</body>" +
                 "</html>";
+
+        return gimmeLine;
+
     }
 
-    @PostMapping("createMessage")
+
+
+
+    @RequestMapping(value = "/form", method = RequestMethod.POST)
+    //@PostMapping("createMessage")
     public String createMessage(@RequestParam String firstChoice,
                                 @RequestParam String secondChoice,
                                 @RequestParam String thirdChoice,
                                 @RequestParam String name) {
 
-        return  "<html>" +
+        String formResponse = "<html>" +
                 "<body>" +
                 "<h1>" + name + "</h1>" +
                 "<ol>" +
@@ -80,5 +88,6 @@ public class SkillsController {
                 "</ol>" +
                 "</body>" +
                 "</html>";
+        return  formResponse;
     }
 }
