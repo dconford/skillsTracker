@@ -1,13 +1,15 @@
 package org.launchcode.skillstracker.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@ResponseBody
+//@ResponseBody
 public class SkillsController {
 
     // Handles Requests at path (localhost:8080/)
+    @ResponseBody
     @RequestMapping(value = "/")
     public String skills() {
         String landingPage = "<html>" +
@@ -29,6 +31,15 @@ public class SkillsController {
         return landingPage;
     }
 
+
+    @RequestMapping(value = "hello")
+    public String hello(Model model) {
+        String locname = "Universe";
+        model.addAttribute("thname", locname);
+        return "hello";
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     //@RequestMapping(method= {RequestMethod.GET, RequestMethod.POST}, value= "/form")
     //@GetMapping("/form")
@@ -70,7 +81,7 @@ public class SkillsController {
 
 
 
-
+    @ResponseBody
     @RequestMapping(value = "/form", method = RequestMethod.POST)
     //@PostMapping("createMessage")
     public String createMessage(@RequestParam String firstChoice,
